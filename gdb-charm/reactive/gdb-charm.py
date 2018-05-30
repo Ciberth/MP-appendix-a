@@ -33,12 +33,12 @@ def ready():
 #
 ###############################################
 
-@when('mysql.connected', 'endpoint.proxy.mysql.requested')
+@when('mysql.connected', 'endpoint.database.mysql.requested')
 def request_mysql_db():
-    db_request_endpoint = endpoint_from_flag('endpoint.proxy.mysql.requested')
+    db_request_endpoint = endpoint_from_flag('endpoint.database.mysql.requested')
 
-    databasename = db_request_endpoint['databasename']
-    username = db_request_endpoint['username']
+    databasename = db_request_endpoint.databasename()
+    username = db_request_endpoint.username()
 
     mysql_endpoint = endpoint_from_flag('mysql.connected')
     mysql_endpoint.configure(databasename, username, prefix="gdb")
@@ -46,7 +46,7 @@ def request_mysql_db():
     status_set('maintenance', 'Requesting mysql db')
 
 
-@when('mysql.available', 'endpoint.proxy.mysql.requested')
+@when('mysql.available', 'endpoint.database.mysql.requested')
 def render_mysql_config_and_share_details():  
  
     mysql_endpoint = endpoint_from_flag('mysql.available')
@@ -62,7 +62,7 @@ def render_mysql_config_and_share_details():
     })
 
     # share details to consumer-app
-    gdb_endpoint = endpoint_from_flag('endpoint.proxy.mysql.requested')
+    gdb_endpoint = endpoint_from_flag('endpoint.database.mysql.requested')
     
     gdb_endpoint.share_details(
         "mysql",
@@ -73,9 +73,9 @@ def render_mysql_config_and_share_details():
         "3306",
     )
     
-    clear_flag('endpoint.proxy.mysql.requested')
-    set_flag('endpoint.proxy.mysql.available')
-    set_flag('endpoint.proxy.concrete')
+    clear_flag('endpoint.database.mysql.requested')
+    set_flag('endpoint.database.mysql.available')
+    set_flag('endpoint.database.concrete')
     set_flag('restart-app')
 
 
