@@ -1,0 +1,2 @@
+includes: ['layer:basic', 'layer:apache-php', 'interface:proxy', 'interface:mysql-shared']
+repo: "https://github.com/Ciberth/MP-appendix-a.git"

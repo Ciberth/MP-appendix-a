@@ -1,0 +1,16 @@
+name: gdb-charm
+summary: Generic-database-charm acting as a proxy + apache + adminer.php 
+maintainer: Ciberth
+description: |
+  Todo 
+tags:
+  - ops
+subordinate: false
+provides:
+  website:
+    interface: http
+  database:
+    interface: proxy
+requires:
+  mysql:
+    interface: mysql-shared

@@ -1,0 +1,15 @@
+name: testwebapp
+summary: Example consumer application (php pages/webapp) representing a webapp
+maintainer: Ciberth
+description: |
+  Todo 
+tags:
+  - ops
+subordinate: false
+provides:
+  website:
+    interface: http
+requires:
+  database:
+    interface: proxy
+
